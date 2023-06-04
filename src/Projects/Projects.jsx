@@ -1,5 +1,4 @@
-import { Description } from '@mui/icons-material'
-import React from 'react'
+
 import Project from './Project'
 import projectsData from './ProjectsData'
 

@@ -2,14 +2,14 @@ import React from 'react'
 import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {motion} from 'framer-motion';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import {useState} from 'react'
 
-function Project({ key,project}) {
-    
+function Project({project}) {
   return (
     <div className='border-dotted border-4   flex flex-col gap-1 text-center'>
-            <img src={project.images[0]} 
-            alt={project.name} 
-               className ='mx-auto'/>
+         <JumboTron images = {project.images}/>
         <div className='flex mx-auto gap-2'>
             <h1 className=' text-xl font-navigation'>{project.name}</h1>
             <motion.div
@@ -38,4 +38,41 @@ function Project({ key,project}) {
   )
 }
 
-export default Project
+
+
+const JumboTron = ({images,name}) => {
+  const [currentImageIndex, setCurrentImageIndex] =   useState(1);
+  
+  const moveToPrevImage = () => {
+      if (currentImageIndex === 0) {
+        setCurrentImageIndex(images.length - 1);
+      }
+      else {
+        setCurrentImageIndex(currentImageIndex - 1)
+      }
+  }
+
+  const moveToNextImage = () => {
+    if (currentImageIndex === (images.length - 1)) {
+      setCurrentImageIndex(0);
+    }
+    else {
+      setCurrentImageIndex(currentImageIndex + 1)
+    }
+}
+  return (
+      <div className='flex justify-around'>
+        <button onClick={moveToPrevImage}>
+          <ArrowBackIosNewIcon/>
+        </button>
+        <img src = {images[currentImageIndex]} alt = {name} className = 'tablet:w-2/3 desktop:w-1/4'/>
+        <button onClick={moveToNextImage}>
+          <ArrowForwardIosIcon/>
+        </button>
+      </div>
+  );
+}
+
+export default Project;
+
+
